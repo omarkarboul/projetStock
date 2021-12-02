@@ -27,6 +27,7 @@ public class LoggingAspect {
 	Object obj = pjp.proceed();
 	long elapsedTime = System.currentTimeMillis() - start;
 	logger.info("Method execution time: " + elapsedTime + " milliseconds.");
+	//test git
 	return obj;
 	}
 
