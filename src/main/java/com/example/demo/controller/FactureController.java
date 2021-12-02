@@ -10,19 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.entities.Facture;
-import com.example.demo.entities.Stock;
 import com.example.demo.service.IfactureService;
 
 @Controller
 @RequestMapping("/facture")
 public class FactureController {
-	
+
 	@Autowired
-	IfactureService factureservice ;
+	IfactureService factureservice;
 
 	@GetMapping("/getfacturesbyclient/{client-id}")
 	@ResponseBody
-	public List<Facture> getFacturesByClient(@PathVariable("client-id") Long clientid){
+	public List<Facture> getFacturesByClient(@PathVariable("client-id") Long clientid) {
 		return factureservice.getFacturesByClient(clientid);
 	}
 

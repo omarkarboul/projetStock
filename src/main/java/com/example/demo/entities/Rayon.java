@@ -24,16 +24,20 @@ import lombok.ToString;
 
 @Entity
 public class Rayon implements Serializable {
-	
-	@Id 
-	@GeneratedValue (strategy = GenerationType.IDENTITY) 
-	@Column(name="idRayon") 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idRayon")
 	private Long idRayon; // Clé primaire
-	
+
 	private String code;
 	private String libelle;
-	
-	
+
 	@OneToMany(mappedBy = "rayon")
 	private List<Produit> produits;
 

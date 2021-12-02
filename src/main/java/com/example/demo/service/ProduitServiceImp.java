@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,7 +8,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import com.example.demo.entities.Fournisseur;
 import com.example.demo.entities.Produit;
@@ -29,25 +27,25 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class ProduitServiceImp implements IproduitService {
-	
+
 	@Autowired
 	ProduitRepository produitrepos;
-	
+
 	@Autowired
 	FournisseurRepository fournisseurrepos;
-	
+
 	@Autowired
-	DetailProduitRepository detproduitrepos ;
-	
+	DetailProduitRepository detproduitrepos;
+
 	@Autowired
 	RayonRepository rayonrepos;
-	
+
 	@Autowired
 	StockRepository stockrepos;
 
 	@Autowired
-	DetailFactureRepository detfactrepos ;
-	
+	DetailFactureRepository detfactrepos;
+
 	@Override
 	public List<Produit> retrieveAllProduits() {
 		// TODO Auto-generated method stub
@@ -57,7 +55,7 @@ public class ProduitServiceImp implements IproduitService {
 	@Override
 	@Transactional
 	public Produit addProduit(Produit p, Long idRayon, Long idStock) {
-		
+
 		Rayon r = rayonrepos.findById(idRayon).get();
 		Stock s = stockrepos.findById(idRayon).get();
 		p.setRayon(r);
@@ -69,48 +67,46 @@ public class ProduitServiceImp implements IproduitService {
 		dp.setProduit(p);
 		p.setDetailproduit(dp);
 		detproduitrepos.save(dp);
-		
+
 		return produitrepos.save(p);
 	}
-		
+
 	@Override
 	public Produit retrieveProduit(Long id) {
-		// TODO Auto-generated method stub
-		return produitrepos.getById(id);
+		return produitrepos.findById(id).orElse(null);
 	}
 
 	@Transactional
 	public void assignProduitToStock(Long idProduit, Long idStock) {
-		Produit p = produitrepos.getById(idProduit);
-		p.setStock(stockrepos.getById(idStock));
+		Produit p = produitrepos.findById(idProduit).orElse(null);
+		p.setStock(stockrepos.findById(idStock).orElse(null));
 		produitrepos.save(p);
-		log.info("assigned stock with id :"+idStock+"to product :"+idProduit);
-		
-		
+		log.info("assigned stock with id :" + idStock + "to product :" + idProduit);
+
 	}
 
 	@Transactional
 	public void assignFournisseurToProduit(Long fournisseurId, Long produitId) {
-		Produit p = produitrepos.getById(produitId);
-		Fournisseur f = fournisseurrepos.getById(fournisseurId);
-		if(p.getFournisseurs() == null) {
+		Produit p = produitrepos.findById(produitId).orElse(null);
+		Fournisseur f = fournisseurrepos.findById(fournisseurId).orElse(null);
+		if (p.getFournisseurs() == null) {
 			List<Fournisseur> fns = new ArrayList<>();
 			fns.add(f);
 			p.setFournisseurs(fns);
-		}else {
+		} else {
 			p.getFournisseurs().add(f);
 		}
-		
+
 		produitrepos.save(p);
-		log.info("assigned provider with id :"+fournisseurId+"to product :"+produitId);
+		log.info("assigned provider with id :" + fournisseurId + "to product :" + produitId);
 	}
 
 	@Override
 	public float getRevenuBrutProduit(Long idProduit, Date startDate, Date endDate) {
-		List <detailFacture> ls = detfactrepos.detfactbyprodanddate(idProduit, startDate, endDate);
-		float x = 0 ;
-		for(detailFacture df : ls) {
-			x+=(df.getPrixTotal()*df.getPourcentageRemise());
+		List<detailFacture> ls = detfactrepos.detfactbyprodanddate(idProduit, startDate, endDate);
+		float x = 0;
+		for (detailFacture df : ls) {
+			x += (df.getPrixTotal() * df.getPourcentageRemise());
 		}
 		return x;
 	}

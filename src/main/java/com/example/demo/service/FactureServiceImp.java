@@ -14,51 +14,46 @@ import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.DetailFactureRepository;
 import com.example.demo.repository.FactureRepository;
 
-
 @Service
-public class FactureServiceImp implements IfactureService{
-	
+public class FactureServiceImp implements IfactureService {
+
 	@Autowired
-	FactureRepository facturerepos ;
-	
+	FactureRepository facturerepos;
+
 	@Autowired
-	ClientRepository clientrepos ;
-	
+	ClientRepository clientrepos;
+
 	@Autowired
-	DetailFactureRepository detfactrepos ;
+	DetailFactureRepository detfactrepos;
 
 	@Override
 	public List<Facture> retrieveAllFactures() {
-		
+
 		return facturerepos.findAll();
 	}
-	
-	@Override
+
 	@Transactional
 	public Facture addFacture(Facture s, Long clientid) {
 		s.setClient(clientrepos.getById(clientid));
-		List <detailFacture>ls = s.getDetfactures();
-		float montantremise = 0 ;
+		List<detailFacture> ls = s.getDetfactures();
+		float montantremise = 0;
 		float montantfacture = 0;
-		for(detailFacture df : ls) {
-			float tot = 0 ;
+		for (detailFacture df : ls) {
+			float tot = 0;
 			Produit p = df.getProduit();
-			tot+=p.getPrixUnitaire()*df.getQte();
-			float montrem = tot*df.getPourcentageRemise();
-			float monttot = tot-montrem ;
+			tot += p.getPrixUnitaire() * df.getQte();
+			float montrem = tot * df.getPourcentageRemise();
+			float monttot = tot - montrem;
 			df.setMontantremise(montrem);
 			df.setPrixTotal(monttot);
-			montantremise+=montrem;
-			montantfacture+=monttot;
+			montantremise += montrem;
+			montantfacture += monttot;
 			detfactrepos.save(df);
-			
 		}
-		
-		
-		
+		s.setMontantFacture(montantfacture);
+		s.setMontantRemise(montantremise);
 		return facturerepos.save(s);
 	}
-	
 
 	@Override
 	public Facture updateFacture(Facture u) {
@@ -75,16 +70,12 @@ public class FactureServiceImp implements IfactureService{
 	@Override
 	public void deleteFacture(Long id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public List<Facture> getFacturesByClient(Long clientid) {
 		return facturerepos.getFacturesByClient(clientid);
 	}
-
-
-
-	
 
 }

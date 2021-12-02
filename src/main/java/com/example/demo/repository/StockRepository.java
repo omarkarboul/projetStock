@@ -1,6 +1,5 @@
 package com.example.demo.repository;
 
-
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entities.Stock;
 
 @Repository
-public interface StockRepository extends JpaRepository<Stock, Long>{
-	
+public interface StockRepository extends JpaRepository<Stock, Long> {
+
 	@Query("select s from Stock s where qte < qteMin ")
 	List<Stock> statusofstocks();
 

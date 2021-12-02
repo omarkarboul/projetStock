@@ -30,28 +30,29 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 
-@Entity 
-@Table( name = "Facture") 
+@Entity
+@Table(name = "Facture")
 public class Facture implements Serializable {
 
-	@Id 
-	@GeneratedValue (strategy = GenerationType.IDENTITY) 
-	@Column(name="idFacture") 
-	private Long idFacture; // Clé primaire 
-	
-	private float montantRemise ;
-	private float montantFacture;
-	@Temporal(TemporalType.DATE) 
-	private Date dateFacture;
-	
-	private boolean active ;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idFacture")
+	private Long idFacture; // Clé primaire
+
+	private float montantRemise;
+	private float montantFacture;
+	@Temporal(TemporalType.DATE)
+	private Date dateFacture;
+	private boolean active;
 	@JsonIgnore
 	@ManyToOne
-    @JoinColumn(name="clientId")
-    private Client client;
-	
+	@JoinColumn(name = "clientId")
+	private Client client;
 	@JsonIgnore
 	@OneToMany(mappedBy = "facture")
 	private List<detailFacture> detfactures;

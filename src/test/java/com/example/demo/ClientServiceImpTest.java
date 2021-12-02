@@ -13,8 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.demo.entities.Client;
 import com.example.demo.repository.ClientRepository;
-import com.example.demo.repository.StockRepository;
-import com.example.demo.service.IStockService;
 import com.example.demo.service.IclientService;
 
 @RunWith(SpringRunner.class)

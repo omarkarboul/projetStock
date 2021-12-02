@@ -14,51 +14,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.entities.Rayon;
-import com.example.demo.entities.Stock;
 import com.example.demo.service.IRayonService;
-import com.example.demo.service.IStockService;
 
 @Controller
 @RequestMapping("/rayon")
 public class RayonController {
-	
+
 	@Autowired
-	IRayonService rayonservice ;
-	
+	IRayonService rayonservice;
+
 	@GetMapping("/retrieve-all-rayons")
 	@ResponseBody
-	public List<Rayon> getRayons(){
+	public List<Rayon> getRayons() {
 		return rayonservice.retrieveAllRayons();
 	}
-	
 
 	@GetMapping("/retrieve-rayon/{rayon-id}")
 	@ResponseBody
 	public Rayon retrieveRayon(@PathVariable("rayon-id") Long RayonId) {
-	return rayonservice.retrieveRayon(RayonId);
+		return rayonservice.retrieveRayon(RayonId);
 	}
 
 	// http://localhost:8089/SpringMVC/client/add-client
 	@PostMapping("/add-rayon")
 	@ResponseBody
-	public Rayon addRayon(@RequestBody Rayon s)
-	{
-	
-	return rayonservice.addRayon(s);
+	public Rayon addRayon(@RequestBody Rayon s) {
+
+		return rayonservice.addRayon(s);
 	}
-	
+
 	@PutMapping("/update-rayon")
 	@ResponseBody
 	public Rayon updateRayon(@RequestBody Rayon s) {
 		return rayonservice.updateRayon(s);
 	}
-	
+
 	@DeleteMapping("/remove-stock/{rayon-id}")
 	@ResponseBody
 	public void deleteRayon(@PathVariable("rayon-id") Long rayonId) {
 		rayonservice.deleteRayon(rayonId);
 	}
-	
-
 
 }

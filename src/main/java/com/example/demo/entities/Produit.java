@@ -31,6 +31,11 @@ import lombok.ToString;
 @ToString
 public class Produit implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idProduit")
@@ -55,7 +60,6 @@ public class Produit implements Serializable {
 	@JoinColumn(name = "StockId")
 	private Stock stock;
 
-	
 	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "detailproduitid")
@@ -80,7 +84,6 @@ public class Produit implements Serializable {
 																																						// in
 																																						// database
 	private List<Fournisseur> fournisseurs;
-	
-	
-	private String image ;
+
+	private String image;
 }

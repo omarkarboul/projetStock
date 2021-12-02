@@ -13,15 +13,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class StockServiceImp implements IStockService{
+public class StockServiceImp implements IStockService {
 
-	
 	@Autowired
-	StockRepository stockrepository; 
-	
+	StockRepository stockrepository;
+
 	@Override
 	public List<Stock> retrieveAllStocks() {
-		
 		return stockrepository.findAll();
 	}
 
@@ -33,38 +31,31 @@ public class StockServiceImp implements IStockService{
 
 	@Override
 	public Stock updateStock(Stock u) {
-		// TODO Auto-generated method stub
 		return stockrepository.save(u);
 	}
 
 	@Override
 	public Stock retrieveStock(Long id) {
-		
 		return stockrepository.findById(id).get();
 	}
 
 	@Override
 	public void deleteStock(Long id) {
 		stockrepository.deleteById(id);
-		
+
 	}
 
 	@Override
 	public List<Stock> statusofstocks() {
-		
 		return stockrepository.statusofstocks();
 	}
-	
+
 	@Scheduled(fixedRate = 60000)
 	public void verifstatusstock() {
 		List<Stock> lst = stockrepository.statusofstocks();
 		for (Stock s : lst) {
-				log.info("le produit dont l id "+s.getIdStock()+" à depasser la qte min :"+s.getQteMin());	
+			log.info("le produit dont l id " + s.getIdStock() + " à depasser la qte min :" + s.getQteMin());
 		}
 	}
-
-	
-	
-	
 
 }

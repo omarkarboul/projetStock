@@ -22,22 +22,25 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString 
+@ToString
 
 @Entity
 public class Stock implements Serializable {
 
-	@Id 
-	@GeneratedValue (strategy = GenerationType.IDENTITY) 
-	@Column(name="idStock") 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idStock")
 	private Long idStock; // Clé primaire
-	
+
 	private int qte;
 	private int qteMin;
-	
-	private String libelleStock;
 
-	
+	private String libelleStock;
 
 	public Stock(int qte, int qteMin, String libelleStock) {
 		super();
@@ -45,9 +48,6 @@ public class Stock implements Serializable {
 		this.qteMin = qteMin;
 		this.libelleStock = libelleStock;
 	}
-
-
-	
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "stock")

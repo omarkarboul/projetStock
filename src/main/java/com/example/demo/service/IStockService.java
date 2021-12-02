@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.demo.entities.Stock;
 
 public interface IStockService {
+	
 	List<Stock> retrieveAllStocks();
 
 	Stock addStock(Stock s);
@@ -12,10 +13,9 @@ public interface IStockService {
 	Stock updateStock(Stock u);
 
 	Stock retrieveStock(Long id);
-	
+
 	void deleteStock(Long id);
-	
+
 	List<Stock> statusofstocks();
-	
-	
+
 }
