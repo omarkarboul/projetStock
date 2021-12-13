@@ -12,8 +12,8 @@ import com.example.demo.entities.Facture;
 @Repository
 public interface FactureRepository extends JpaRepository<Facture, Long> {
 
-//		@Query(value = "update facture set active = false where id_facture=:id ")
-//	    void CancelFacture cancelfacture(@Param("id") Long id);
+	@Query("SELECT f FROM Facture f WHERE f.dateFacture BETWEEN '2021-01-01' AND '2021-12-31'  ")
+	List<Facture> chiffreAffaire();
 
 	@Query("select f from Facture f where f.client.idClient =:clientid")
 	List<Facture> getFacturesByClient(@Param("clientid") Long clientid);

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entities.Facture;
@@ -15,10 +16,10 @@ import com.example.demo.repository.DetailFactureRepository;
 import com.example.demo.repository.FactureRepository;
 
 @Service
-public class FactureServiceImp implements IfactureService {
+public class FactureServiceImp implements iFactureService {
 
 	@Autowired
-	FactureRepository facturerepos;
+	FactureRepository factureRepository;
 
 	@Autowired
 	ClientRepository clientrepos;
@@ -28,8 +29,8 @@ public class FactureServiceImp implements IfactureService {
 
 	@Override
 	public List<Facture> retrieveAllFactures() {
-
-		return facturerepos.findAll();
+		List<Facture> factures = (List<Facture>) factureRepository.findAll();
+		return factures;
 	}
 
 	@Transactional
@@ -52,30 +53,36 @@ public class FactureServiceImp implements IfactureService {
 		}
 		s.setMontantFacture(montantfacture);
 		s.setMontantRemise(montantremise);
-		return facturerepos.save(s);
+		return factureRepository.save(s);
 	}
 
 	@Override
-	public Facture updateFacture(Facture u) {
-		// TODO Auto-generated method stub
-		return null;
+	public void cancelFacture(Long id) {
+		Facture facture = factureRepository.findById(id).orElse(null);
+		if (facture.isActive() == false) {
+			factureRepository.deleteById(id);
+		}
+
 	}
 
 	@Override
 	public Facture retrieveFacture(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Facture facture = factureRepository.findById(id).orElse(null);
+		return facture;
+	}
+
+	@Scheduled(cron = "0 0 0 1/1 * *")
+	public float chiffreAffaire() {
+		float chiffreAffaire = 0;
+		List<Facture> factures = factureRepository.chiffreAffaire();
+		for (Facture facture : factures) {
+			chiffreAffaire = chiffreAffaire + facture.getMontantFacture();
+		}
+		return chiffreAffaire;
 	}
 
 	@Override
-	public void deleteFacture(Long id) {
-		// TODO Auto-generated method stub
-
+	public List<Facture> getFactureByClient(Long idclient) {
+		return factureRepository.getFacturesByClient(idclient);
 	}
-
-	@Override
-	public List<Facture> getFacturesByClient(Long clientid) {
-		return facturerepos.getFacturesByClient(clientid);
-	}
-
 }

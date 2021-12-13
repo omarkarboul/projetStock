@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.demo.entities.Client;
 import com.example.demo.repository.ClientRepository;
-import com.example.demo.service.IclientService;
+import com.example.demo.service.iClientService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -22,7 +22,7 @@ public class ClientServiceImpTest {
 	@Autowired
 	ClientRepository clientrepos;
 	@Autowired
-	IclientService iclientservice;
+	iClientService iclientservice;
 	
 	@Test
 	public void ClientsWithDateBirthTest() {

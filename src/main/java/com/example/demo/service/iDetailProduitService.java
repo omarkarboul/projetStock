@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.example.demo.entities.detailProduit;
 
-public interface DetailProduitService {
+public interface iDetailProduitService {
 
 	List<detailProduit> retrieveAllDetailProduit();
 

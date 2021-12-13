@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class DetailFactServiceImp implements IdetailfactureService {
+public class DetailFactServiceImp implements iDetailfactureService {
 
 	@Autowired
 	DetailFactureRepository detfactrepos;

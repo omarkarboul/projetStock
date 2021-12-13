@@ -40,16 +40,12 @@ public class Produit implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idProduit")
 	private Long idProduit; // Clé primaire
-
 	private String code;
 	private String libelle;
-
 	private float prixUnitaire;
-
 	@JsonIgnore
 	@OneToMany(mappedBy = "produit")
 	private List<detailFacture> detfactures;
-
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "rayonId")

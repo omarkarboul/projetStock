@@ -50,7 +50,7 @@ public class StockServiceImp implements IStockService {
 		return stockrepository.statusofstocks();
 	}
 
-	@Scheduled(fixedRate = 60000)
+	//@Scheduled(fixedRate = 60000)
 	public void verifstatusstock() {
 		List<Stock> lst = stockrepository.statusofstocks();
 		for (Stock s : lst) {

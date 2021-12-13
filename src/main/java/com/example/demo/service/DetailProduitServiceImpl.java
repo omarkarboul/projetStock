@@ -10,7 +10,7 @@ import com.example.demo.entities.detailProduit;
 import com.example.demo.repository.DetailProduitRepository;
 
 @Service
-public class DetailProduitServiceImpl implements DetailProduitService {
+public class DetailProduitServiceImpl implements iDetailProduitService {
 
 	@Autowired
 	DetailProduitRepository detailProduitRepository;

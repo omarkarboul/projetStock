@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entities.detailProduit;
-import com.example.demo.service.DetailProduitService;
+import com.example.demo.service.iDetailProduitService;
 
 @RestController
 @RequestMapping("/detailproduit")
@@ -22,7 +22,7 @@ import com.example.demo.service.DetailProduitService;
 public class DetailFactureController {
 
 	@Autowired
-	DetailProduitService detailProduitService;
+	iDetailProduitService detailProduitService;
 
 	@GetMapping("/retrieve-all-detailproduits")
 	@ResponseBody

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.example.demo.entities.Produit;
 
-public interface IproduitService {
+public interface iProduitService {
 	
 	List<Produit> retrieveAllProduits();
 
@@ -15,7 +15,7 @@ public interface IproduitService {
 
 	void assignProduitToStock(Long idProduit, Long idStock);
 
-	public void assignFournisseurToProduit(Long fournisseurId, Long produitId);
+	void assignFournisseurToProduit(Long fournisseurId, Long produitId);
 
 	float getRevenuBrutProduit(Long idProduit, Date startDate, Date endDate);
 }

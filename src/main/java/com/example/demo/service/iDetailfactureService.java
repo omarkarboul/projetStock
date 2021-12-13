@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.example.demo.entities.detailFacture;
 
-public interface IdetailfactureService {
+public interface iDetailfactureService {
 
 	List<detailFacture> retrieveAllDetFacts();
 

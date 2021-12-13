@@ -6,7 +6,7 @@ import java.util.List;
 import com.example.demo.entities.CategorieClient;
 import com.example.demo.entities.Client;
 
-public interface IclientService {
+public interface iClientService {
 
 	List<Client> retriveAllClients();
 
@@ -18,9 +18,16 @@ public interface IclientService {
 
 	Client retriveClient(Long id);
 
-	// float getChiffreAffaireParCategorieClient(CategorieClient categorieClient );
 	List<Client> ClientsWithDateBirth(Date d1, Date d2);
 
-	float CAbyCategorieCategorieClient(CategorieClient categorie, Date d1, Date d2);
+	float chiffreAffaireCategClient(CategorieClient categorie, Date d1, Date d2);
+
+	// project
+
+	float getAchatTotal(Long idClient);
+
+	int getPorduitAchete(Long idClient);
+
+	int getPorduitAcheteInfDate(Long idClient, Date date);
 
 }

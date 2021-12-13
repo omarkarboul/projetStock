@@ -49,6 +49,7 @@ public class detailFacture implements Serializable {
 	@JoinColumn(name = "FactureId")
 	private Facture facture;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "produitId")
 	private Produit produit;

@@ -39,8 +39,6 @@ public class Client implements Serializable {
 	private Profession profession;
 	@Enumerated(EnumType.STRING)
 	private CategorieClient categorieClient;
-// Constructeur et accesseurs (getters) et mutateurs (setters)
-
 	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Facture> factures;

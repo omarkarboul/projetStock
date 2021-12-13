@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.entities.Produit;
-import com.example.demo.service.IproduitService;
+import com.example.demo.service.iProduitService;
 import com.example.demo.service.date12;
 
 @Controller
@@ -22,7 +22,7 @@ import com.example.demo.service.date12;
 public class ProduitController {
 
 	@Autowired
-	IproduitService produitservice;
+	iProduitService produitservice;
 
 	// http://localhost:8089/SpringMVC/produit/retrieve-all-produits
 	@GetMapping("/retrieve-all-produits")
