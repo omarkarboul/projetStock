@@ -1,6 +1,6 @@
 package com.example.demo.entities;
 
-import java.io.Serializable;
+import java.io.Serializable; 
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -33,8 +36,10 @@ public class detailProduit implements Serializable {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)  
 	private Long idDetailProduit; // Clé primaire
 	
+	@CreatedDate
 	@Temporal(TemporalType.DATE) 
 	private Date dateCreation; 
+	@LastModifiedDate
 	@Temporal(TemporalType.DATE) 
 	private Date dateDerniereModification;
 	@Enumerated(EnumType.STRING) 

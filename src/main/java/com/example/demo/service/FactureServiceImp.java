@@ -1,10 +1,14 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entities.Facture;
@@ -13,6 +17,10 @@ import com.example.demo.entities.detailFacture;
 import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.DetailFactureRepository;
 import com.example.demo.repository.FactureRepository;
+import com.example.demp.dto.PaymentInfo;
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.PaymentIntent;
 
 
 @Service
@@ -26,6 +34,12 @@ public class FactureServiceImp implements IfactureService{
 	
 	@Autowired
 	DetailFactureRepository detfactrepos ;
+	
+	public FactureServiceImp(@Value("${stripe.key.secret}") String secretkey) {
+		Stripe.apiKey=secretkey;
+	}
+
+	
 
 	@Override
 	public List<Facture> retrieveAllFactures() {
@@ -81,6 +95,17 @@ public class FactureServiceImp implements IfactureService{
 	@Override
 	public List<Facture> getFacturesByClient(Long clientid) {
 		return facturerepos.getFacturesByClient(clientid);
+	}
+
+	@Override
+	public PaymentIntent createPaymentIntent(PaymentInfo paymentinfo) throws StripeException {
+		List<String> paymentMethodTypes  = new ArrayList<>();
+		paymentMethodTypes.add("card");
+		Map<String , Object> params = new HashMap<>();
+		params.put("amount", paymentinfo.getAmount());
+		params.put("currency",paymentinfo.getCurrency());
+		params.put("payment_method_types" , paymentMethodTypes);
+		return PaymentIntent.create(params);
 	}
 
 

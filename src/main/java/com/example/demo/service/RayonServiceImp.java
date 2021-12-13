@@ -35,7 +35,7 @@ public class RayonServiceImp implements IRayonService {
 	@Override
 	public Rayon retrieveRayon(Long id) {
 		// TODO Auto-generated method stub
-		return rayonrepository.getById(id);
+		return rayonrepository.findById(id).orElse(null);
 	}
 
 	@Override

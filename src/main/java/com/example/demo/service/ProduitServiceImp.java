@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.example.demo.entities.CategorieProduit;
 import com.example.demo.entities.Fournisseur;
 import com.example.demo.entities.Produit;
 import com.example.demo.entities.Rayon;
@@ -59,7 +59,7 @@ public class ProduitServiceImp implements IproduitService {
 	public Produit addProduit(Produit p, Long idRayon, Long idStock) {
 		
 		Rayon r = rayonrepos.findById(idRayon).get();
-		Stock s = stockrepos.findById(idRayon).get();
+		Stock s = stockrepos.findById(idStock).get();
 		p.setRayon(r);
 		p.setStock(s);
 		detailProduit dp = new detailProduit();
@@ -69,6 +69,36 @@ public class ProduitServiceImp implements IproduitService {
 		dp.setProduit(p);
 		p.setDetailproduit(dp);
 		detproduitrepos.save(dp);
+		
+		return produitrepos.save(p);
+	}
+	
+	@Transactional
+	public Produit addProduit2(Produit p, Long idRayon, Long idStock, CategorieProduit cat) {
+		Rayon r = rayonrepos.findById(idRayon).get();
+		Stock s = stockrepos.findById(idStock).get();
+		p.setRayon(r);
+		p.setStock(s);
+		detailProduit dp = new detailProduit();
+		Date now = new Date();
+		dp.setDateCreation(now);
+		dp.setDateDerniereModification(now);
+		dp.setCategorieProduit(cat);
+		dp.setProduit(p);
+		p.setDetailproduit(dp);
+		detproduitrepos.save(dp);
+		
+		return produitrepos.save(p);
+	}
+	
+	@Transactional
+	public Produit updateProduit(Produit p, Long idRayon, Long idStock) {
+		
+		Rayon r = rayonrepos.findById(idRayon).get();
+		Stock s = stockrepos.findById(idStock).get();
+		p.setRayon(r);
+		p.setStock(s);
+		
 		
 		return produitrepos.save(p);
 	}
@@ -114,5 +144,27 @@ public class ProduitServiceImp implements IproduitService {
 		}
 		return x;
 	}
+
+	@Override
+	public List<Produit> getProductsByCategory(CategorieProduit cat) {
+		// TODO Auto-generated method stub
+		return produitrepos.getProductsByCategory(cat);
+	}
+
+
+
+	@Override
+	public void deleteProduit(Long id) {
+		produitrepos.delete(produitrepos.getById(id));
+		
+	}
+
+	@Override
+	public Produit updateProd(Produit p) {
+		// TODO Auto-generated method stub
+		return produitrepos.save(p);
+	}
+
+	
 
 }
