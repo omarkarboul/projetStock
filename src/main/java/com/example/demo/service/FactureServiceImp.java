@@ -11,13 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.PaymentInfo;
 import com.example.demo.entities.Facture;
 import com.example.demo.entities.Produit;
 import com.example.demo.entities.detailFacture;
 import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.DetailFactureRepository;
 import com.example.demo.repository.FactureRepository;
-import com.example.demp.dto.PaymentInfo;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;

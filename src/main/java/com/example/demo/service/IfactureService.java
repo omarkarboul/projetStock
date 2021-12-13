@@ -2,8 +2,8 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import com.example.demo.dto.PaymentInfo;
 import com.example.demo.entities.Facture;
-import com.example.demp.dto.PaymentInfo;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 

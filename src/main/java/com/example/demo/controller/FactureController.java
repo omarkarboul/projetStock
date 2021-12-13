@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.dto.PaymentInfo;
 import com.example.demo.entities.Facture;
 import com.example.demo.entities.Stock;
 import com.example.demo.service.IfactureService;
-import com.example.demp.dto.PaymentInfo;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 
