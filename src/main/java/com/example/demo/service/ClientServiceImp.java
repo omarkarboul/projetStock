@@ -4,9 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entities.CategorieClient;
@@ -24,16 +21,9 @@ public class ClientServiceImp implements iClientService {
 	@Autowired
 	private ClientRepository clientrepository;
 
-	Pageable paging = PageRequest.of(0, 3);
-
-	public List<Client> ListfindAll(Pageable paging) {
-		Page<Client> recordsPage = clientrepository.findAll(paging);
-		return recordsPage.getContent();
-	}
-
 	@Override
 	public List<Client> retriveAllClients() {
-		List<Client> Clients = ListfindAll(paging);
+		List<Client> Clients = clientrepository.findAll();
 		return Clients;
 	}
 
@@ -49,8 +39,11 @@ public class ClientServiceImp implements iClientService {
 	}
 
 	@Override
-	public Client updateclient(Client c) {
-		return clientrepository.save(c);
+	public Client updateclient(Client c, Long idClient) {
+		Client client = clientrepository.findById(idClient).orElse(null);
+		client = c;
+		client.setIdClient(idClient);
+		return clientrepository.save(client);
 	}
 
 	@Override

@@ -58,10 +58,10 @@ public class ClientController {
 	}
 
 	// http://localhost:8089/SpringMVC/client/modify-client
-	@PutMapping("/modify-client")
+	@PutMapping("/modify-client/{idClient}")
 	@ResponseBody
-	public Client modifyClient(@RequestBody Client client) {
-		return clientService.updateclient(client);
+	public Client modifyClient(@RequestBody Client client, @PathVariable("idClient") Long idClient) {
+		return clientService.updateclient(client, idClient);
 	}
 
 	@GetMapping("/CAparcategorieclient/{categorie}")

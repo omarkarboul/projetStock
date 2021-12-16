@@ -14,7 +14,7 @@ public interface iClientService {
 
 	void deleteClient(Long id);
 
-	Client updateclient(Client c);
+	Client updateclient(Client c , Long idClient);
 
 	Client retriveClient(Long id);
 
